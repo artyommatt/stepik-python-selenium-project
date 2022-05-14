@@ -25,8 +25,6 @@ class ProductPage(BasePage):
         product_price = self.parse_product_price()
         product_price_in_info_message = self.browser.find_element(
             *ProductPageLocators.PRODUCT_PRICE_IN_INFO_MESSAGE).text
-        print('1', product_price)
-        print('2', product_price_in_info_message)
         assert product_price == product_price_in_info_message, 'Product price is invalid in info message'
 
     def should_not_be_success_message(self):

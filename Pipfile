@@ -16,5 +16,5 @@ pre-commit = "==2.19.0"
 python_version = "3.8"
 
 [scripts]
-run = "pytest -v --tb=line --language=en test_main_page.py"
+run = "pytest -v --tb=line --language=en"
 lint = "flake8 ."
