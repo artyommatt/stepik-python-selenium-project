@@ -3,6 +3,7 @@ import math
 from selenium.common.exceptions import NoAlertPresentException, TimeoutException, NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from datetime import datetime
 
 from .locators import BasePageLocators
 
@@ -44,8 +45,15 @@ class BasePage:
     def open(self):
         self.browser.get(self.url)
 
+    def random_email(self):
+        return 'email' + datetime.now().strftime('%Y%m%d%H%M%S') + '@gmail.com'
+
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert

@@ -1,6 +1,7 @@
 import pytest
 
 from pages.basket_page import BasketPage
+from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 
 
@@ -71,3 +72,30 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page = BasketPage(browser, browser.current_url)
     basket_page.should_empty_basket()
     basket_page.should_be_empty_basket_message()
+
+
+class TestUserAddToBasketFromProductPage:
+    # манипулировать браузером в сетапе и уж тем более что-то там проверять — это плохая практика,
+    # лучше так не делать без особой необходимости. Здесь этот пример исключительно в учебных целях
+    @pytest.fixture(scope='function', autouse=True)
+    def setup(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/accounts/login/'
+        registration_page = LoginPage(browser, link)
+        registration_page.open()
+        user_email = registration_page.random_email()
+        registration_page.register_new_user(email=user_email, password='Test123456789')
+        registration_page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/hacking-exposed-wireless_208/'
+        product_page = ProductPage(browser, link)
+        product_page.open()
+        product_page.should_not_be_success_message()
+
+    def test_user_can_add_product_to_basket(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/'
+        product_page = ProductPage(browser, link)
+        product_page.open()
+        product_page.add_product_to_basket()
+        product_page.should_the_equal_product_name()
+        product_page.should_the_equal_product_price()
