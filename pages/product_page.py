@@ -28,3 +28,10 @@ class ProductPage(BasePage):
         print('1', product_price)
         print('2', product_price_in_info_message)
         assert product_price == product_price_in_info_message, 'Product price is invalid in info message'
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            'Success message is presented, but should not be'
+
+    def success_message_is_disapeared(self):
+        assert self.is_dissapeared(*ProductPageLocators.SUCCESS_MESSAGE), 'Success message is not disapeared'

@@ -16,3 +16,4 @@ class ProductPageLocators:
     PRODUCT_PRICE_ADD_TO_BASKET = (By.CSS_SELECTOR, 'tr:nth-child(3) > td')
     PRODUCT_NAME_IN_SUCCESS_MESSAGE = (By.CSS_SELECTOR, '.alert-success strong')
     PRODUCT_PRICE_IN_INFO_MESSAGE = (By.CSS_SELECTOR, '.alert-info strong')
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, '.alert-success')
